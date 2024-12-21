@@ -1,14 +1,23 @@
 from bson import ObjectId
-from flask import Flask, request
+from flask import Flask, Response, jsonify, make_response, request
+from flask_cors import CORS
 
 from database import Database, TaskModel
 
 app = Flask(__name__)
+CORS(app)
+# CORS(app, resources={r"/tasks": {"origins": "http://localhost:5500"}}, 
+#      methods=["GET", "POST"], 
+#      allow_headers=["Content-Type", "Authorization"], 
+#      supports_credentials=True)
 
 @app.route("/tasks", methods=["GET"])
 def tasks():
     # print(Database().getAllTasks().to_list())
-    return Database().getAllTasks()
+    resp = jsonify(Database().getAllTasks())
+    resp.headers.add("Access-Control-Allow-Origin", "*")
+    resp.headers.add("Vary", "Origin")
+    return resp
 
 @app.post("/new-task")
 def newTask():

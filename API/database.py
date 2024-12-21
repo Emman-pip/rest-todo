@@ -25,7 +25,8 @@ class Database():
         return self.__database
 
     def getAllTasks(self):
-        return json.loads( json_util.dumps(self.__database.find()))
+        return json.loads(json_util.dumps(self.__database.find()))
+        # return self.__database.find()
 
     def insertToDb(self, entry: dict):
         self.__database.insert_one(entry)
