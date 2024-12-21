@@ -1,0 +1,23 @@
+* RESTFUL TODO list
+This project is to practice the integration of a REST architecture\
+
+
+** How it would work
+The API will be written using Python (Flask) and the frontend will be made using tailwindcss, html, and vanilla Javascript.
+
+
+** Features
+The todo list will be a minimal one. It will only include the following features:
+1. A single to do list
+2. CRUD operations on the database through API calls
+
+   
+** Next iterations
+This section will cover the features to be implemented on the next iterations of the application.
+1. A user login system that will include authorization tokens.
+2. TODO lists for groups
+
+
+** Database
+MongoDB will be used as the database of the application. The collections and their related structures will be pasted here once the application is done.
+
