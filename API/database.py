@@ -30,13 +30,14 @@ class Database():
     def insertToDb(self, entry: dict):
         self.__database.insert_one(entry)
 
-    def updateTask(self, taskId: ObjectId, update:dict):
+    def updateTask(self, taskId: ObjectId, updateData:dict):
         """
         The update argument consists of the timestamp, task name, task description
         """
         # self.__database.update_one()
         filter = {"_id": taskId}
-        self.__database.update_one(filter, update)
+        print(self.__database.find_one(filter))
+        self.__database.find_one_and_update(filter, {"$set": updateData})
 
     def deleteTask(self, taskId: ObjectId):
         self.__database.delete_one({"_id": taskId})
