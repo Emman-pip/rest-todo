@@ -15,8 +15,8 @@ CORS(app)
 def tasks():
     # print(Database().getAllTasks().to_list())
     resp = jsonify(Database().getAllTasks())
-    resp.headers.add("Access-Control-Allow-Origin", "*")
-    resp.headers.add("Vary", "Origin")
+    # resp.headers.add("Access-Control-Allow-Origin", "*")
+    # resp.headers.add("Vary", "Origin")
     return resp
 
 @app.post("/new-task")
@@ -25,7 +25,7 @@ def newTask():
     description = request.form["description"]
     task = TaskModel(taskname, description).getTask()
     Database().insertToDb(task)
-    return {}
+    return jsonify({"status": "SUCCESS"})
 
 @app.put("/task-update/<taskId>")
 def taskUpdate(taskId):
@@ -41,7 +41,7 @@ def taskDelete(taskId):
     try:
         Database().deleteTask(taskId)
     except:
-        return {}
+        return jsonify({})
 
-    return {}
+    return jsonify({})
 
