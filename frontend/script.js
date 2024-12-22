@@ -1,18 +1,41 @@
 const taskElement = (taskName, description, lastUpdate) => {
+const taskElement = (taskName, description, lastUpdate, taskId) => {
     const container = document.createElement("div");
     const nameElement = document.createElement("h3");
     nameElement.textContent = taskName;
     container.appendChild(nameElement);
 
+    const info = document.createElement("div");
+
     const descriptionElement = document.createElement("p");
     descriptionElement.textContent = description;
-    container.appendChild(descriptionElement);
+    info.appendChild(descriptionElement);
 
     const lastUpdateElement = document.createElement("i");
     const lastUpdateText = new Date(lastUpdate["$date"]);
-    console.log(lastUpdateText);
+    
     lastUpdateElement.textContent = lastUpdateText.getDate() + " " + lastUpdateText.getMonth() + " " + lastUpdateText.getFullYear(); 
-    container.appendChild(lastUpdateElement);
+    info.appendChild(lastUpdateElement);
+    container.appendChild(info);
+
+    const buttons = document.createElement("div");
+
+    const updateBtn = document.createElement("a");
+    updateBtn.href = "#";
+    updateBtn.textContent = "Update";
+
+    buttons.appendChild(updateBtn);
+
+    const delBtn = document.createElement("a");
+    delBtn.textContent = "Delete";
+    delBtn.addEventListener("click", e=>{
+	e.preventDefault();
+	deleteTask(taskId);
+    })
+    buttons.appendChild(delBtn);
+    
+    container.appendChild(buttons);
+    
 
     return container;
 }
