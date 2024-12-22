@@ -22,7 +22,11 @@ const taskElement = (taskName, description, lastUpdate, taskId) => {
     const buttons = document.createElement("div");
 
     const updateBtn = document.createElement("a");
-    updateBtn.href = "#";
+    updateBtn.addEventListener("click", (e)=>
+	{
+	    e.preventDefault();
+	    updateWindow(taskName, description, taskId);
+	})
     updateBtn.textContent = "Update";
 
     buttons.appendChild(updateBtn);
@@ -107,22 +111,43 @@ const deleteTask = (taskId) => {
 	.catch(e=>console.log(e));
    
     
-}
+n}
 
-const updateTask = (taskId, taskName, description) => {
-   fetch(`${domain}task-update/${taskId}`, {
+const updateTask = (taskId, taskNameStr, description) => {
+    const data = new FormData();
+    data.append("task-name", taskNameStr);
+    data.append("description", description);
+    fetch(`${domain}task-update/${taskId}`, {
 	method: 'PUT',
 	mode: "cors",
-	headers:{
-	    'Content-Type': 'application/json'
-	}
+	body: data,
     })
-	.then(()=>loadTasks())
+	.then((res)=>{
+	    if (!res.ok){
+		console.log(res);
+	    }else {
+		loadTasks()		
+	    }
+
+	})
 	.catch(e=>console.log(e));
     
 }
 
 
+const updateWindow = (taskName, description, taskId) => {
+    const updatedName = document.getElementById("updated-task-name");
+    const updatedDesc = document.getElementById("updated-desc");
+    updatedName.value = taskName;
+    updatedDesc.value = description;
+
+    document.getElementById("update-task").addEventListener("click", (e) =>{
+	e.preventDefault();
+	console.log(updatedName.value)
+	updateTask(taskId, updatedName.value, updatedDesc.value);
+	loadTasks();
+    })
+}
 
 ((() => {
     loadTasks();

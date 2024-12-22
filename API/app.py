@@ -29,12 +29,13 @@ def newTask():
 
 @app.put("/task-update/<taskId>")
 def taskUpdate(taskId):
-    updateData = TaskModel(request.form["taskName"], request.form["description"]).getTask()
+    taskName = request.form["task-name"];
+    updateData = TaskModel(taskName, request.form["description"]).getTask()
     try:
         Database().updateTask(ObjectId(taskId), updateData)
     except:
-        return {}
-    return {}
+        return jsonify({})
+    return jsonify({})
 
 @app.delete("/task-delete/<taskId>")
 def taskDelete(taskId):
