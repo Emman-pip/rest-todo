@@ -41,7 +41,7 @@ class Database():
         self.__database.find_one_and_update(filter, {"$set": updateData})
 
     def deleteTask(self, taskId: ObjectId):
-        self.__database.delete_one({"_id": taskId})
+        self.__database.delete_one({"_id": ObjectId(taskId)})
 
 
 class TaskModel():
