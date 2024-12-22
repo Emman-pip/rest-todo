@@ -61,24 +61,70 @@ const loadTasks = () => {
 	      }
 	  })
     	  .then((res) => {
-	      console.log(res)
-	      res.map((item) => {
-		  const task = taskElement(item["task-name"], item["description"], item["last-updated"]);
+	      	      res.map((item) => {
+		  const task = taskElement(item["task-name"], item["description"], item["last-updated"], item["_id"]["$oid"]);
 		  container.appendChild(task);
-		  console.log(container);
-	      })
+		  	      })
 	  })
-
-
-    //     const xhttp = new XMLHttpRequest();
-    //     xhttp.onload = function() {
-    // 	document.getElementById("container").innerHTML = this.responseText;
-    //     }
-    //     xhttp.open("GET", "http://localhost:8000/tasks", true, );
-    //     xhttp.send();
 }
+
+const addTask = () => {
+    const btn = document.getElementById("add-item");
+    btn.addEventListener("click", (e)=>{
+	e.preventDefault()
+	
+	const taskName = document.getElementById("task-name");
+	const description = document.getElementById("description");
+	const url = domain + "new-task";
+	const data = new URLSearchParams();
+	data.append("taskName", taskName.value);
+	data.append("description", description.value);
+
+	fetch(url, {
+	    method: "POST",
+	    mode: "no-cors",
+	    body: data,
+	    headers: {
+		'Content-Type': "application/json",
+	    }
+
+	}).catch((err) => console.log(err));
+	loadTasks();
+	taskName.value = ""
+	description.value = ""
+    })
+}
+
+const deleteTask = (taskId) => {
+    fetch(`${domain}task-delete/${taskId}`, {
+	method: 'DELETE',
+	mode: "cors",
+	headers:{
+	    'Content-Type': 'application/json'
+	}
+    })
+	.then(()=>loadTasks())
+	.catch(e=>console.log(e));
+   
+    
+}
+
+const updateTask = (taskId, taskName, description) => {
+   fetch(`${domain}task-update/${taskId}`, {
+	method: 'PUT',
+	mode: "cors",
+	headers:{
+	    'Content-Type': 'application/json'
+	}
+    })
+	.then(()=>loadTasks())
+	.catch(e=>console.log(e));
+    
+}
+
 
 
 ((() => {
     loadTasks();
+    addTask();
 })())
