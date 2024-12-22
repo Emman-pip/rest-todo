@@ -1,5 +1,7 @@
-<html>
+<!doctype html>
+<html lang="en">
     <head>
+        <meta charset="UTF-8"/>
 	<title>TODO LIST</title>
 	<script type="text/javascript" src="script.js" defer></script>
     </head>
@@ -13,5 +15,19 @@
 	    </nav>
 	    <section id="contents"></section>
 	</main>
+	<section id="new-records">
+	    <form method="POST" action="">
+		<input name="taskName" id="task-name" type="text" value=""/>
+		<textarea cols="30" id="description" name="description" rows="10"></textarea>
+		<input id="add-item" type="submit" value="ADD TASK" />
+	    </form>
+	</section>
+	<section id="update-records">
+	    <form>
+		<input id="updated-task-name" name="" type="text" value=""/>
+		<textarea id="updated-desc" cols="30" id="" name="" rows="10"></textarea>
+		<input id="update-task" name="" type="submit" value="update task"/>
+	    </form>
+	</section>
     </body>
 </html>
