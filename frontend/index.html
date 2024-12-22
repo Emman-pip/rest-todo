@@ -4,30 +4,38 @@
         <meta charset="UTF-8"/>
 	<title>TODO LIST</title>
 	<script type="text/javascript" src="script.js" defer></script>
+	<link rel="stylesheet" type="text/css" href="src/output.css" />
     </head>
     <body>
 	<main>
-	    <nav>
-		<a href="/">Home</a>
+	    <nav class="flex justify-between bg-gray-200 p-4">
+		<a href="/" class="text-lg">Home</a>
 		<div>
-		    <a href="#">add new task</a>
+		    <a href="#" class="bg-white hover:bg-gray-500 hover:text-white transition-all duration-300 p-3 rounded-md shadow shadow-black" id="add-new-btn">add new task</a>
 		</div>
 	    </nav>
-	    <section id="contents"></section>
+	    <section id="contents" class="p-5 flex flex-col gap-4"></section>
 	</main>
-	<section id="new-records">
-	    <form method="POST" action="">
-		<input name="taskName" id="task-name" type="text" value=""/>
-		<textarea cols="30" id="description" name="description" rows="10"></textarea>
-		<input id="add-item" type="submit" value="ADD TASK" />
-	    </form>
+	<section id="new-records" class="hidden transition-all duration-300 fixed top-0 left-0 h-full w-full bg-gray-300 flex flex-col justify-center items-center">
+		<div class="">
+			<form class="flex flex-col gap-2">
+				<h1>Add task</h1>
+				<input placeholder="task name" name="taskName" id="task-name" type="text" value=""/>
+				<textarea placeholder="description" cols="30" id="description" name="description" rows="10"></textarea>
+				<input id="add-item" type="submit" value="ADD TASK" class="bg-gray-600 hover:bg-gray-800 text-white transition-all duration-300"/>
+				<button id="cancel-add-item" class="bg-red-600 hover:bg-red-800 text-white">cancel</button>
+			</form>
+		</div>
 	</section>
-	<section id="update-records">
-	    <form>
-		<input id="updated-task-name" name="" type="text" value=""/>
-		<textarea id="updated-desc" cols="30" id="" name="" rows="10"></textarea>
-		<input id="update-task" name="" type="submit" value="update task"/>
-	    </form>
+
+	<section id="update-records" class="hidden transition-all duration-300 fixed top-0 left-0 h-full w-full bg-gray-300 flex flex-col justify-center items-center">
+		<form class="flex flex-col gap-2">
+			<h1 class="font-bold">Update item</h1>
+			<input id="updated-task-name" name="" type="text" value=""/>
+			<textarea id="updated-desc" cols="30" id="" name="" rows="10"></textarea>
+			<input id="update-task" name="" type="submit" value="update task" class="bg-gray-600 hover:bg-gray-800 text-white transition-all duration-300"/>
+				<button onclick="toggleVisibility('#update-records')" class="bg-red-600 hover:bg-red-800 text-white">cancel</button>
+		</form>
 	</section>
-    </body>
+		</body>
 </html>
