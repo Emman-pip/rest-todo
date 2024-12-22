@@ -1,4 +1,5 @@
-const taskElement = (taskName, description, lastUpdate) => {
+const domain = "http://localhost:8000/"
+
 const taskElement = (taskName, description, lastUpdate, taskId) => {
     const container = document.createElement("div");
     const nameElement = document.createElement("h3");
@@ -42,7 +43,8 @@ const taskElement = (taskName, description, lastUpdate, taskId) => {
 
 const loadTasks = () => {
     const container = document.getElementById("contents");
-    const data = fetch("http://localhost:8000/tasks",
+    container.innerHTML ="";
+    const data = fetch(domain +"tasks",
 		       {
 			   mode: "cors",
 			   method: "GET",
